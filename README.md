@@ -38,19 +38,7 @@ Traditional idol sculpture in India is an ephemeral sacred art—created for fes
 5. **Minimalist Archival Aesthetics**:
    - Editorial, archival color palette (natural parchment, deep charcoal ink, terracotta accent, and warm slate).
 
----
 
-## 🚀 Running Locally
-
-```bash
-# Clone the repository
-git clone git@github.com:Polymath05/kalakarcollective.git
-cd kalakarcollective
-
-# Run with any local server
-python3 -m http.server 8080
-# Visit http://localhost:8080
-```
 
 ---
 
