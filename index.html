@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalakar Collective — Archive of Hyderabad Sculpture Artisans</title>
+  <meta name="description" content="An open digital archive recording the studio albums, workshop methodologies, and oral histories of traditional sculpture artisans of Hyderabad.">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="#" onclick="window.location.hash=''; return false;" class="brand-name" id="i18n-brand-name">Kalakar Collective</a>
+        <span class="brand-meta" id="i18n-brand-meta">An Artisans' Archive</span>
+      </div>
+
+      <div class="header-right">
+        <nav>
+          <ul class="nav-menu">
+            <li><a href="#" class="nav-link active" id="nav-sculptors">Sculptors</a></li>
+            <li><a href="#map" class="nav-link" id="nav-map">Map</a></li>
+            <li><a href="#people" class="nav-link" id="nav-people">Peoples</a></li>
+            <li><a href="#about" class="nav-link" id="nav-about">About</a></li>
+          </ul>
+        </nav>
+
+        <!-- Language Switcher: English, Telugu, Hindi -->
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="en" title="English">English</button>
+          <button class="lang-btn" data-lang="te" title="తెలుగు (Telugu)">తెలుగు</button>
+          <button class="lang-btn" data-lang="hi" title="हिन्दी (Hindi)">हिन्दी</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- VIEW 1: SCULPTORS DIRECTORY (HOME) -->
+  <main id="view-directory" class="view-panel active">
+    <!-- Hero Statement -->
+    <section class="hero-statement">
+      <div class="container">
+        <h1 class="statement-text" id="i18n-hero-title">
+          An open archive preserving the oral histories, studio photographs, and material records of traditional sculpture artisans of Hyderabad.
+        </h1>
+        <p class="statement-sub" id="i18n-hero-sub">
+          Vernacular idol sculpture in India is an ephemeral sacred art—created for festivals and dissolved in water during immersion. Kalakar Collective documents the workshops, artisan lineages, migration histories, and studio albums that make this living heritage possible.
+        </p>
+      </div>
+    </section>
+
+    <!-- Sculptors Directory Grid -->
+    <section class="roster-section" id="sculptors">
+      <div class="container">
+        <span class="section-label" id="i18n-roster-label">Sculptors in the Collective</span>
+        <div class="sculptors-grid" id="sculptors-grid">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Regional Provenance Map Section -->
+    <section id="map" class="map-section">
+      <div class="container">
+        <span class="section-label" id="i18n-map-label">Regional Provenance & Studio Map</span>
+        <h2 style="font-family: var(--font-serif); font-size: 1.8rem; font-weight: 500; margin-bottom: 12px;" id="i18n-map-title">
+          Geographic Distribution of Studio Works
+        </h2>
+        <p style="font-size: 0.95rem; color: var(--c-muted); max-width: 800px; margin-bottom: 24px;" id="i18n-map-desc">
+          Tracing the regional distribution of Ramesh Singh Kalakar's monumental festival idols and studio hubs across Hyderabad, Telangana, and Andhra Pradesh.
+        </p>
+
+        <div class="map-layout-grid">
+          <div class="map-svg-container">
+            <svg viewBox="0 0 600 500" style="width: 100%; height: auto; max-height: 480px;">
+              <defs>
+                <radialGradient id="deccanGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#FAF9F5"/>
+                  <stop offset="100%" stop-color="#F2EFE9"/>
+                </radialGradient>
+              </defs>
+              <rect width="600" height="500" fill="url(#deccanGlow)"/>
+              
+              <!-- Cartographic schematic borders -->
+              <path d="M 160,80 Q 300,50 440,110 T 520,270 T 430,450 T 260,470 T 140,320 Z" 
+                    fill="none" stroke="#E5E2DA" stroke-width="2" stroke-dasharray="4,4"/>
+              
+              <path d="M 210,130 Q 340,110 430,170 T 460,300 T 360,430 T 220,380 Z" 
+                    fill="#FFFFFF" stroke="#D8D4C8" stroke-width="1.5"/>
+
+              <!-- River Godavari & Krishna Schematics -->
+              <path d="M 130,140 Q 280,165 480,185" fill="none" stroke="#C8D4DF" stroke-width="1.5"/>
+              <text x="440" y="175" fill="#8898A6" font-size="10" font-family="'Inter', sans-serif">Godavari Basin</text>
+
+              <path d="M 120,300 Q 260,325 480,345" fill="none" stroke="#C8D4DF" stroke-width="1.5"/>
+              <text x="430" y="360" fill="#8898A6" font-size="10" font-family="'Inter', sans-serif">Krishna Basin</text>
+
+              <!-- Connecting distribution routes from Begum Bazaar Hub -->
+              <line x1="260" y1="220" x2="420" y2="310" stroke="#9E432E" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+              <line x1="260" y1="220" x2="270" y2="140" stroke="#9E432E" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+              <line x1="260" y1="220" x2="230" y2="380" stroke="#9E432E" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+              <line x1="260" y1="220" x2="350" y2="450" stroke="#9E432E" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+
+              <!-- Central Hub: Begum Bazaar -->
+              <g class="map-dot-node" data-hub="begum-bazaar" tabindex="0" role="button" aria-label="Begum Bazaar Studio Hub">
+                <circle cx="260" cy="220" r="14" fill="#9E432E" class="dot-base"/>
+                <circle cx="260" cy="220" r="7" fill="#FAF9F5"/>
+                <circle cx="260" cy="220" r="20" fill="none" stroke="#9E432E" stroke-width="1.5" class="dot-pulse"/>
+                <text x="260" y="248" fill="#1C1B1A" font-size="11" font-family="'Newsreader', serif" font-weight="600" text-anchor="middle">Begum Bazaar (Studio)</text>
+              </g>
+
+              <!-- Regional Nodes -->
+              <!-- Siddhipet -->
+              <g class="map-dot-node" data-hub="siddhipet" tabindex="0" role="button" aria-label="Siddhipet Temple Installation">
+                <circle cx="270" cy="140" r="8" fill="#1C1B1A" class="dot-base"/>
+                <circle cx="270" cy="140" r="14" fill="none" stroke="#9E432E" stroke-width="1.5" class="dot-pulse"/>
+                <text x="270" y="128" fill="#1C1B1A" font-size="10" font-family="'Inter', sans-serif" font-weight="500" text-anchor="middle">Siddhipet (9ft)</text>
+              </g>
+
+              <!-- Vijayawada -->
+              <g class="map-dot-node" data-hub="vijayawada" tabindex="0" role="button" aria-label="Vijayawada Festival Installations">
+                <circle cx="420" cy="310" r="10" fill="#1C1B1A" class="dot-base"/>
+                <circle cx="420" cy="310" r="16" fill="none" stroke="#9E432E" stroke-width="1.5" class="dot-pulse"/>
+                <text x="420" y="332" fill="#1C1B1A" font-size="10" font-family="'Inter', sans-serif" font-weight="500" text-anchor="middle">Vijayawada (15ft Durga & Lion)</text>
+              </g>
+
+              <!-- Kurnool -->
+              <g class="map-dot-node" data-hub="kurnool" tabindex="0" role="button" aria-label="Kurnool Festival Installation">
+                <circle cx="230" cy="380" r="8" fill="#1C1B1A" class="dot-base"/>
+                <circle cx="230" cy="380" r="14" fill="none" stroke="#9E432E" stroke-width="1.5" class="dot-pulse"/>
+                <text x="230" y="400" fill="#1C1B1A" font-size="10" font-family="'Inter', sans-serif" font-weight="500" text-anchor="middle">Kurnool (10ft)</text>
+              </g>
+
+              <!-- Tirupati Balaji -->
+              <g class="map-dot-node" data-hub="tirupati" tabindex="0" role="button" aria-label="Tirupati Balaji Temple Pavilion">
+                <circle cx="350" cy="450" r="9" fill="#1C1B1A" class="dot-base"/>
+                <circle cx="350" cy="450" r="15" fill="none" stroke="#9E432E" stroke-width="1.5" class="dot-pulse"/>
+                <text x="350" y="470" fill="#1C1B1A" font-size="10" font-family="'Inter', sans-serif" font-weight="500" text-anchor="middle">Tirupati Balaji (Museum)</text>
+              </g>
+
+              <!-- Hyderabad Local Pandals Group -->
+              <g class="map-dot-node" data-hub="jagath-girigutta" tabindex="0" role="button" aria-label="Jagath Girigutta Pandal">
+                <circle cx="240" cy="195" r="5" fill="#6B6862" class="dot-base"/>
+                <circle cx="240" cy="195" r="10" fill="none" stroke="#9E432E" stroke-width="1.5" class="dot-pulse"/>
+                <text x="215" y="190" fill="#6B6862" font-size="9" font-family="'Inter', sans-serif">Jagath Girigutta</text>
+              </g>
+
+              <g class="map-dot-node" data-hub="ram-nagar" tabindex="0" role="button" aria-label="Ram Nagar Pandal">
+                <circle cx="280" cy="205" r="5" fill="#6B6862" class="dot-base"/>
+                <circle cx="280" cy="205" r="10" fill="none" stroke="#9E432E" stroke-width="1.5" class="dot-pulse"/>
+                <text x="320" y="208" fill="#6B6862" font-size="9" font-family="'Inter', sans-serif">Ram Nagar</text>
+              </g>
+
+              <g class="map-dot-node" data-hub="langar-house" tabindex="0" role="button" aria-label="Langar House Pandal">
+                <circle cx="230" cy="235" r="5" fill="#6B6862" class="dot-base"/>
+                <circle cx="230" cy="235" r="10" fill="none" stroke="#9E432E" stroke-width="1.5" class="dot-pulse"/>
+                <text x="195" y="245" fill="#6B6862" font-size="9" font-family="'Inter', sans-serif">Langar House</text>
+              </g>
+
+              <g class="map-dot-node" data-hub="abids" tabindex="0" role="button" aria-label="Abids Procession Pandal">
+                <circle cx="270" cy="225" r="5" fill="#6B6862" class="dot-base"/>
+                <circle cx="270" cy="225" r="10" fill="none" stroke="#9E432E" stroke-width="1.5" class="dot-pulse"/>
+                <text x="300" y="228" fill="#6B6862" font-size="9" font-family="'Inter', sans-serif">Abids</text>
+              </g>
+            </svg>
+
+            <!-- Interactive Map Node Thumbnail Popover -->
+            <div id="map-node-popover" class="map-node-popover" style="display: none;">
+              <div class="popover-header">
+                <div>
+                  <span class="popover-badge" id="popover-badge">Installation Hub</span>
+                  <h4 class="popover-title" id="popover-title">Vijayawada, Andhra Pradesh</h4>
+                </div>
+                <button class="popover-close-btn" id="popover-close-btn" aria-label="Close popover">✕</button>
+              </div>
+              <p class="popover-desc" id="popover-desc">Monumental 15ft Durga tableau & kinetic lion installations</p>
+              <div class="popover-thumbs-title">Archival Photographs (Click thumbnail to view plate):</div>
+              <div class="popover-thumbs-row" id="popover-thumbs-row">
+                <!-- Rendered dynamically -->
+              </div>
+              <div class="popover-footer">
+                <button class="popover-view-all-btn" id="popover-view-all-btn">
+                  View Location Plates Modal →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="map-sidebar">
+            <h3 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--c-ink);" id="i18n-map-nodes-title">
+              Documented Installation Hubs
+            </h3>
+            <div class="map-locations-list">
+              <div class="map-location-row" data-hub="begum-bazaar" role="button" tabindex="0" title="Click to view plates for Begum Bazaar">
+                <div>
+                  <strong>Begum Bazaar, Hyderabad</strong>
+                  <div style="font-size: 0.78rem; color: var(--c-muted);">Workshop & Chatri Colossal Chariot</div>
+                </div>
+                <span class="location-work-count">6 Plates →</span>
+              </div>
+              <div class="map-location-row" data-hub="vijayawada" role="button" tabindex="0" title="Click to view plates for Vijayawada">
+                <div>
+                  <strong>Vijayawada, Andhra Pradesh</strong>
+                  <div style="font-size: 0.78rem; color: var(--c-muted);">15ft Durga with Fairies & Kinetic Lion</div>
+                </div>
+                <span class="location-work-count">3 Plates →</span>
+              </div>
+              <div class="map-location-row" data-hub="tirupati" role="button" tabindex="0" title="Click to view plates for Tirupati Balaji">
+                <div>
+                  <strong>Tirupati Balaji (Tirumala)</strong>
+                  <div style="font-size: 0.78rem; color: var(--c-muted);">Cycle of Life & Sheshnag Pavilion</div>
+                </div>
+                <span class="location-work-count">2 Plates →</span>
+              </div>
+              <div class="map-location-row" data-hub="siddhipet" role="button" tabindex="0" title="Click to view plates for Siddhipet">
+                <div>
+                  <strong>Siddhipet, Telangana</strong>
+                  <div style="font-size: 0.78rem; color: var(--c-muted);">9ft Vaishno Devi Temple Idol</div>
+                </div>
+                <span class="location-work-count">1 Plate →</span>
+              </div>
+              <div class="map-location-row" data-hub="kurnool" role="button" tabindex="0" title="Click to view plates for Kurnool">
+                <div>
+                  <strong>Kurnool, Andhra Pradesh</strong>
+                  <div style="font-size: 0.78rem; color: var(--c-muted);">10ft Ganesha as Makhan Chor</div>
+                </div>
+                <span class="location-work-count">1 Plate →</span>
+              </div>
+              <div class="map-location-row" data-hub="hyderabad-pandals" role="button" tabindex="0" title="Click to view plates for Hyderabad City Pandals">
+                <div>
+                  <strong>Hyderabad City Pandals</strong>
+                  <div style="font-size: 0.78rem; color: var(--c-muted);">Jagath Girigutta, Ram Nagar, Langar House, Abids</div>
+                </div>
+                <span class="location-work-count">8 Plates →</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" style="border-top: 1px solid var(--c-line); padding: 80px 0;">
+      <div class="container" style="max-width: 780px; margin: 0 auto;">
+        <span class="section-label" id="i18n-about-label">About the Collective</span>
+        <h2 style="font-family: var(--font-serif); font-size: 1.8rem; font-weight: 500; margin-bottom: 20px;" id="i18n-about-title">
+          Preserving Workshop Heritage Beyond Visarjan
+        </h2>
+        <div style="font-size: 0.95rem; color: var(--c-muted); line-height: 1.8; display: flex; flex-direction: column; gap: 16px;" id="i18n-about-text">
+          <p>
+            Traditional sculpture artisans in Hyderabad—working across Begum Bazaar, Dhoolpet, and the Old City—carry deep generational knowledge of clay metallurgy, wood armatures, natural fibers, and sacred iconography.
+          </p>
+          <p>
+            Kalakar Collective builds dedicated monographs for individual sculptors, archiving their studio photographs, financial histories, and workshop collaborations. If you are an artisan, researcher, or family member with archival albums to share, we welcome your contributions to this collective memory.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- VIEW 2: SCULPTOR PROFILE & STUDIO PAGE -->
+  <main id="view-sculptor" class="view-panel">
+    <!-- Back Navigation Bar -->
+    <div class="back-bar">
+      <div class="container">
+        <button id="back-to-directory-btn" class="back-btn">
+          ← Back to All Sculptors
+        </button>
+      </div>
+    </div>
+
+    <!-- Upper Section: Sculptor Profile & Studio Photographs -->
+    <section class="sculptor-upper-section">
+      <div class="container sculptor-profile-layout">
+        
+        <!-- Left: Details, Bio & Artisan Photograph -->
+        <div class="sculptor-details-column">
+          <div class="profile-header-with-photo">
+            <img src="assets/images/ramesh-singh-kalakar.jpg" alt="Ramesh Singh Kalakar" class="profile-artisan-photo" id="profile-artisan-img">
+            <div class="profile-titles">
+              <h1 class="profile-name" id="profile-name">Ramesh Singh Kalakar</h1>
+              <div class="profile-honorific" id="profile-honorific">Master Sculptor & Workshop Founder</div>
+            </div>
+          </div>
+
+          <div class="profile-specs-grid">
+            <div class="spec-item">
+              <span class="spec-key" id="i18n-key-hub">Workshop Hub</span>
+              <span class="spec-val" id="profile-location">Begum Bazaar, Hyderabad</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-key" id="i18n-key-era">Active Period</span>
+              <span class="spec-val" id="profile-era">1980–1990</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-key" id="i18n-key-studio">Studio Name</span>
+              <span class="spec-val" id="profile-studio">Ramesh’s Studio</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-key" id="i18n-key-holdings">Archive Holdings</span>
+              <span class="spec-val" id="profile-records-count">21 Plates</span>
+            </div>
+          </div>
+
+          <div class="profile-narrative" id="profile-bio">
+            <!-- Rendered dynamically by app.js -->
+          </div>
+
+          <div class="profile-personalities-box">
+            <div class="box-title" id="i18n-box-lineage">Documented Studio Personalities & Lineage</div>
+            <div class="personalities-roster" id="profile-personalities">
+              Haran Pal, Pradeep Pal, Vimal Pal, Ramesh Singh Kalakar, Sushanto Pal, Arun Pal, Sheetal Singh, Jai Singh, Meenakshi Bai, Babu Pal, Chetana Pal
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Studio Photographs -->
+        <div class="studio-photos-column">
+          <div class="column-title-row">
+            <h2 class="column-title" id="i18n-studio-photos-title">Studio & Workshop Photographs</h2>
+            <span class="column-meta" id="i18n-studio-photos-count">5 Documentation Plates</span>
+          </div>
+          <div class="studio-photos-grid" id="studio-photos-grid">
+            <!-- Rendered dynamically by app.js -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Bottom Section: Timeline Scroller & Works Display -->
+    <section class="timeline-section">
+      <div class="container">
+        
+        <div class="timeline-header-bar">
+          <div>
+            <h2 class="timeline-title" id="i18n-timeline-title">Chronology & Photographic Records</h2>
+            <div id="timeline-status" style="font-size: 0.85rem; color: var(--c-muted); margin-top: 4px;">
+              Scroll or click a year along the timeline below to bring forward works from that period.
+            </div>
+          </div>
+          <span class="timeline-legend" id="i18n-timeline-legend">Album Sequence: 1980 – 2000</span>
+        </div>
+
+        <!-- Horizontal Timeline Scroller Track -->
+        <div class="timeline-scroller-track" id="timeline-scroller-track">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+
+        <!-- Filtered Works Grid -->
+        <div class="timeline-works-grid" id="timeline-works-grid">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- VIEW 3: PEOPLES PAGE -->
+  <main id="view-people" class="view-panel">
+    <!-- Back Navigation Bar -->
+    <div class="back-bar">
+      <div class="container">
+        <button id="back-from-people-btn" class="back-btn">
+          ← Back to Sculptors
+        </button>
+      </div>
+    </div>
+
+    <!-- People Hero Section -->
+    <section class="people-page-hero">
+      <div class="container people-container-narrow">
+        <span class="section-label" id="i18n-people-label">Kalakar Collective</span>
+        <h1 class="people-page-title" id="i18n-people-title">People</h1>
+        <p class="people-page-sub" id="i18n-people-sub">
+          The makers, keepers and researchers behind the archive.
+        </p>
+      </div>
+    </section>
+
+    <!-- The Artisans -->
+    <section class="people-section">
+      <div class="container people-container-narrow">
+        <div class="people-card">
+          <span class="people-card-tag" id="i18n-artisans-tag">Makers & Living Heritage</span>
+          <h2 class="people-section-heading" id="i18n-artisans-title">The Artisans</h2>
+          <p class="people-text" id="i18n-artisans-desc">
+            Kalakar Collective exists because of the sculptors of Hyderabad. They are the master makers, their families and apprentices, and the workshop hands who shape clay, straw, bamboo and pigment into images of the divine. Many learned the craft from their fathers and grandfathers, and many carry histories of migration into the city's workshops. Each artisan is credited here by name, in their own words wherever possible, and each record is shared with their consent.
+          </p>
+          <div class="people-action-row">
+            <a href="#" id="people-browse-artisans-btn" class="people-link-btn">
+              Browse the artisans →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Founder and Researcher -->
+    <section class="people-section">
+      <div class="container people-container-narrow">
+        <div class="people-card founder-card-layout">
+          <div class="founder-photo-wrap">
+            <img src="assets/images/sharad-chaurasia.jpg" alt="Sharad Chaurasia" class="founder-photo" id="founder-photo-img">
+            <div class="founder-photo-meta">
+              <strong>Sharad Chaurasia</strong>
+              <span>Lucknow / Hyderabad</span>
+            </div>
+          </div>
+
+          <div class="founder-bio-wrap">
+            <span class="people-card-tag" id="i18n-founder-tag">Research & Curation</span>
+            <h2 class="people-section-heading" id="i18n-founder-title">Founder and Researcher</h2>
+            <div class="founder-credentials">
+              <strong>Sharad Chaurasia</strong>
+              <span>MVA, University of Hyderabad • BVA, University of Lucknow</span>
+            </div>
+
+            <div class="people-text" id="i18n-founder-paragraphs">
+              <p>
+                Sharad Chaurasia is an art historian and visual studies researcher based in Lucknow, India. He holds a Master of Visual Art from the University of Hyderabad and a Bachelor of Visual Arts from the University of Lucknow.
+              </p>
+              <p>
+                His postgraduate dissertation examined the making of kinetic god sculptures and the artisanal practices of Dhoolpet, Hyderabad. Alongside this, he documented the craftsmanship of cobblers in the city.
+              </p>
+              <p>
+                His research centres on contemporary visual culture, with a particular concern for endangered artisanal practices. His work brings together ethnographic fieldwork, material culture studies and digital humanities. He also translates complex academic ideas into contemporary art, a quiet and considered way of communicating research.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contributors -->
+    <section class="people-section">
+      <div class="container people-container-narrow">
+        <div class="people-card">
+          <span class="people-card-tag" id="i18n-contrib-tag">Collaborative Preservation</span>
+          <h2 class="people-section-heading" id="i18n-contrib-title">Contributors</h2>
+          <p class="people-text" id="i18n-contrib-desc">
+            The archive grows through collective effort. Photographers, researchers, translators and community members contribute studio albums, oral histories and records. Each contributor is credited on the records they help create.
+          </p>
+          <div class="people-invite-box">
+            <strong id="i18n-contrib-cta-title">Want to contribute?</strong>
+            <p id="i18n-contrib-cta-desc">
+              If you have photographic albums, field notes, audio recordings, or oral histories from Hyderabad's sculpting workshops, we warmly invite you to help build this collective memory. Write to us at <a href="mailto:scr.005@yahoo.com" class="archive-mail-link">scr.005@yahoo.com</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- A note on consent and credit -->
+    <section class="people-section people-section-last">
+      <div class="container people-container-narrow">
+        <div class="people-card consent-card">
+          <span class="people-card-tag" id="i18n-consent-tag">Ethics & Stewardship</span>
+          <h2 class="people-section-heading" id="i18n-consent-title">A note on consent and credit</h2>
+          <p class="people-text" id="i18n-consent-desc">
+            Every artisan's name, image and words appear with their agreement. If you are an artisan or family member featured here and wish to change or withdraw a record, please contact us at <a href="mailto:scr.005@yahoo.com" class="archive-mail-link">scr.005@yahoo.com</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ARCHIVAL WORK DETAIL MODAL -->
+  <div class="modal-overlay" id="archival-modal">
+    <div class="modal-container">
+      <button class="modal-close-btn" id="modal-close-btn" title="Close (Esc)">✕</button>
+
+      <!-- Image Area -->
+      <div class="modal-img-area">
+        <button class="modal-nav-arrow prev" id="modal-prev-btn" title="Previous Work">‹</button>
+        <img src="" alt="" class="modal-img" id="modal-img">
+        <button class="modal-nav-arrow next" id="modal-next-btn" title="Next Work">›</button>
+      </div>
+
+      <!-- Info Area -->
+      <div class="modal-info-area">
+        <div class="modal-plate-heading" id="modal-plate-heading">ARCHIVE RECORD / PLATE #01</div>
+        <h3 class="modal-work-title" id="modal-work-title">Work Title</h3>
+
+        <table class="modal-metadata-table">
+          <tr>
+            <td>Dimensions</td>
+            <td id="modal-dimensions">—</td>
+          </tr>
+          <tr>
+            <td>Placed Location</td>
+            <td id="modal-location">—</td>
+          </tr>
+          <tr>
+            <td>Commission Patron</td>
+            <td id="modal-commission">—</td>
+          </tr>
+          <tr>
+            <td>1980s Economics</td>
+            <td id="modal-economics">—</td>
+          </tr>
+          <tr>
+            <td>Identified In Photo</td>
+            <td id="modal-personalities">—</td>
+          </tr>
+        </table>
+
+        <div class="modal-text-block">
+          <div class="modal-text-label">Concept & Iconography</div>
+          <div class="modal-text-content" id="modal-concept">—</div>
+        </div>
+
+        <div class="modal-text-block">
+          <div class="modal-text-label">Materials & Studio Technique</div>
+          <div class="modal-text-content" id="modal-material">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCATION PLATES MODAL (Installation Hubs Viewer) -->
+  <div class="location-modal-overlay" id="location-plates-modal" role="dialog" aria-modal="true" aria-labelledby="loc-modal-title">
+    <div class="location-modal-window">
+      <div class="location-modal-header">
+        <div>
+          <span class="location-modal-kicker" id="loc-modal-kicker">Documented Installation Hub</span>
+          <h2 class="location-modal-title" id="loc-modal-title">Vijayawada, Andhra Pradesh</h2>
+          <p class="location-modal-desc" id="loc-modal-desc">
+            Archival photographic records of sculptures commissioned and installed in Vijayawada
+          </p>
+        </div>
+        <button class="modal-close-btn" id="loc-modal-close-btn" title="Close (Esc)">✕</button>
+      </div>
+
+      <div class="location-modal-body">
+        <div class="location-plates-grid" id="loc-modal-plates-grid">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </div>
+
+      <div class="location-modal-footer">
+        <button class="loc-modal-action-btn" id="loc-modal-go-timeline">
+          Explore in Ramesh Singh's Complete Timeline →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Minimal Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span id="i18n-footer-text">Kalakar Collective — Hyderabad Sculpture Artisans Oral History Archive.</span>
+      <span>Begum Bazaar • Dhoolpet • Deccan</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
