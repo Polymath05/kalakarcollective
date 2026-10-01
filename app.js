@@ -63,7 +63,8 @@
       contrib_cta_desc: "If you have photographic albums, field notes, audio recordings, or oral histories from sculpting workshops across India, we warmly invite you to help build this collective memory. Write to us at",
       consent_tag: "Ethics & Stewardship",
       consent_title: "A note on consent and credit",
-      consent_desc: "Every artisan's name, image and words appear with their agreement. If you are an artisan or family member featured here and wish to change or withdraw a record, please contact us at"
+      consent_desc: "Every artisan's name, image and words appear with their agreement. If you are an artisan or family member featured here and wish to change or withdraw a record, please contact us at",
+      protection_notice: "Archival record protected — image copying and downloading is restricted."
     },
     te: {
       brand_name: "కళాకార్ కలెక్టివ్",
@@ -119,7 +120,8 @@
       contrib_cta_desc: "మీ వద్ద భారతదేశ శిల్పకళాశాలల ఫోటో ఆల్బమ్‌లు, ఫీల్డ్ నోట్స్ లేదా మౌఖిక రికార్డులు ఉంటే, మాతో పంచుకోండి. మాకు రాయండి:",
       consent_tag: "నైతికత & సంరక్షణ",
       consent_title: "సమ్మతి మరియు గుర్తింపుపై సూచన",
-      consent_desc: "ప్రతి కళాకారుని పేరు, చిత్రం మరియు మాటలు వారి అంగీకారంతోనే ప్రచురించబడ్డాయి. ఏదైనా రికార్డును సవరించాలనుకుంటే సంప్రదించండి:"
+      consent_desc: "ప్రతి కళాకారుని పేరు, చిత్రం మరియు మాటలు వారి అంగీకారంతోనే ప్రచురించబడ్డాయి. ఏదైనా రికార్డును సవరించాలనుకుంటే సంప్రదించండి:",
+      protection_notice: "ఆర్కైవల్ రికార్డు రక్షించబడింది — చిత్రాలను కాపీ చేయడం లేదా డౌన్‌లోడ్ చేయడం నిషిద్ధం."
     },
     hi: {
       brand_name: "कलाकार कलेक्टिव",
@@ -175,7 +177,8 @@
       contrib_cta_desc: "यदि आपके पास भारत भर की मूर्तिकला कार्यशालाओं के स्टूडियो एल्बम, फोटोग्राफ या मौखिक इतिहास हैं, तो हमसे संपर्क करें:",
       consent_tag: "नैतिकता एवं श्रेय",
       consent_title: "सहमति और श्रेय पर एक टिप्पणी",
-      consent_desc: "प्रत्येक शिल्पकार का नाम, चित्र और शब्द उनकी सहमति से प्रकाशित हैं। यदि आप कोई रिकॉर्ड बदलना या वापस लेना चाहते हैं, तो हमसे संपर्क करें:"
+      consent_desc: "प्रत्येक शिल्पकार का नाम, चित्र और शब्द उनकी सहमति से प्रकाशित हैं। यदि आप कोई रिकॉर्ड बदलना या वापस लेना चाहते हैं, तो हमसे संपर्क करें:",
+      protection_notice: "अभिलेखागार संरक्षित है — छवियों को कॉपी या डाउनलोड करना प्रतिबंधित है।"
     }
   };
 
@@ -781,6 +784,29 @@
     dom.navMap = document.getElementById('nav-map');
     dom.navPeople = document.getElementById('nav-people');
     dom.navAbout = document.getElementById('nav-about');
+    dom.protectionToast = document.getElementById('archive-protection-toast');
+  }
+
+  // --- Image Protection Toast Logic ---
+  let toastTimer = null;
+  function showProtectionToast() {
+    if (!dom.protectionToast) {
+      dom.protectionToast = document.getElementById('archive-protection-toast');
+    }
+    if (!dom.protectionToast) {
+      dom.protectionToast = document.createElement('div');
+      dom.protectionToast.id = 'archive-protection-toast';
+      dom.protectionToast.className = 'archive-protection-toast';
+      document.body.appendChild(dom.protectionToast);
+    }
+    const t = TRANSLATIONS[state.lang] || TRANSLATIONS.en;
+    const msg = t.protection_notice || "Archival record protected — image copying and downloading is restricted.";
+    dom.protectionToast.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> <span>${msg}</span>`;
+    dom.protectionToast.classList.add('active');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      if (dom.protectionToast) dom.protectionToast.classList.remove('active');
+    }, 2800);
   }
 
   // --- Language Switcher Logic ---
@@ -966,7 +992,9 @@
         </div>
 
         <div class="sculptor-portrait-wrap">
-          <img src="${sculptor.portrait_image}" class="sculptor-portrait" alt="${displayName}" loading="lazy">
+          <div class="img-shield" aria-hidden="true"></div>
+          <img src="${sculptor.portrait_image}" class="sculptor-portrait" alt="${displayName}" loading="lazy" draggable="false" oncontextmenu="return false;">
+          <span class="watermark-tag">KALAKAR ARCHIVE</span>
         </div>
 
         <p class="sculptor-bio-snippet">${(state.lang === 'te' && sculptor.bio_paragraphs_te ? sculptor.bio_paragraphs_te[0] : (state.lang === 'hi' && sculptor.bio_paragraphs_hi ? sculptor.bio_paragraphs_hi[0] : sculptor.bio_paragraphs[0]))}</p>
@@ -1031,7 +1059,9 @@
 
       card.innerHTML = `
         <div class="studio-photo-img-wrap">
-          <img src="${sp.image_url}" class="studio-photo-img" alt="${sp.title}" loading="lazy">
+          <div class="img-shield" aria-hidden="true"></div>
+          <img src="${sp.image_url}" class="studio-photo-img" alt="${sp.title}" loading="lazy" draggable="false" oncontextmenu="return false;">
+          <span class="watermark-tag">KALAKAR ARCHIVE</span>
         </div>
         <div class="studio-photo-caption">
           <strong>Plate #${sp.plate}: ${sp.title}</strong>
@@ -1127,7 +1157,9 @@
 
       card.innerHTML = `
         <div class="work-img-wrap">
-          <img src="${work.image_url}" class="work-img" alt="${work.title}" loading="lazy">
+          <div class="img-shield" aria-hidden="true"></div>
+          <img src="${work.image_url}" class="work-img" alt="${work.title}" loading="lazy" draggable="false" oncontextmenu="return false;">
+          <span class="watermark-tag">KALAKAR ARCHIVE</span>
           <span class="work-plate-tag">#${String(work.plate).padStart(2, '0')}</span>
           <span class="work-year-tag">${work.year}</span>
         </div>
@@ -1254,7 +1286,10 @@
         };
 
         thumb.innerHTML = `
-          <img src="${w.image_url}" alt="Plate #${w.plate}" class="popover-thumb-img" loading="lazy">
+          <div class="popover-thumb-wrap">
+            <div class="img-shield" aria-hidden="true"></div>
+            <img src="${w.image_url}" alt="Plate #${w.plate}" class="popover-thumb-img" loading="lazy" draggable="false" oncontextmenu="return false;">
+          </div>
           <div class="popover-thumb-info">
             <span class="popover-thumb-plate">#${w.plate < 10 ? '0' + w.plate : w.plate} (${w.year})</span>
             <span class="popover-thumb-name">${w.title}</span>
@@ -1312,7 +1347,9 @@
 
         card.innerHTML = `
           <div class="loc-plate-img-wrap">
-            <img src="${w.image_url}" alt="${w.title}" class="loc-plate-img" loading="lazy">
+            <div class="img-shield" aria-hidden="true"></div>
+            <img src="${w.image_url}" alt="${w.title}" class="loc-plate-img" loading="lazy" draggable="false" oncontextmenu="return false;">
+            <span class="watermark-tag">KALAKAR ARCHIVE</span>
           </div>
           <div class="loc-plate-content">
             <div class="loc-plate-meta-top">
@@ -1549,8 +1586,32 @@
     if (dom.modalPrevBtn) dom.modalPrevBtn.onclick = () => stepModal(-1);
     if (dom.modalNextBtn) dom.modalNextBtn.onclick = () => stepModal(1);
 
+    // Image Protection: Suppress right-click context menu on images and shields
+    document.addEventListener('contextmenu', (e) => {
+      if (e.target.closest('img, .img-shield, .modal-img-shield, .modal-img-area, .sculptor-portrait-wrap, .work-img-wrap, .studio-photo-img-wrap, .loc-plate-img-wrap, .founder-photo-wrap, .profile-artisan-photo-wrap, .popover-thumb-wrap')) {
+        e.preventDefault();
+        showProtectionToast();
+      }
+    });
+
+    // Image Protection: Prevent drag-and-drop of images
+    document.addEventListener('dragstart', (e) => {
+      if (e.target.tagName === 'IMG' || e.target.closest('img, .img-shield, .modal-img-shield')) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
     // Global keyboard listeners
     window.addEventListener('keydown', (e) => {
+      // Image Protection: Prevent Save (Ctrl/Cmd+S), Print (Ctrl/Cmd+P), View Source (Ctrl/Cmd+U)
+      const isCmdOrCtrl = e.ctrlKey || e.metaKey;
+      if (isCmdOrCtrl && (e.key === 's' || e.key === 'S' || e.key === 'p' || e.key === 'P')) {
+        e.preventDefault();
+        showProtectionToast();
+        return;
+      }
+
       if (e.key === 'Escape') {
         if (dom.modalOverlay && dom.modalOverlay.classList.contains('active')) {
           closeModal();
